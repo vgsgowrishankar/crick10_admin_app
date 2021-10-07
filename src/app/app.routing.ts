@@ -50,7 +50,7 @@ export const routes: Routes = [
   //   data: {
   //     title: 'News Page'
   //   }
-    
+
   //   // data: {
   //   //   title: 'Register Page'
   //   // }
@@ -95,7 +95,7 @@ export const routes: Routes = [
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
-      
+
     ]
   },
   { path: '**', component: P404Component }

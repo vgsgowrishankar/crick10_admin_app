@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://localhost:4200",
+    "target": "http:test-api.globals10.com/",
     "secure": false
   }
 }
