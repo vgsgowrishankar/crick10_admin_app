@@ -14,27 +14,36 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'alerts'
+        redirectTo: 'details'
       },
       {
-        path: 'alerts',
+        path: 'details',
         component: AlertsComponent,
         data: {
-          title: 'Alerts'
+          title: 'Details'
         }
       },
       {
-        path: 'badges',
+        path: 'allPlayers/:id',
         component: BadgesComponent,
         data: {
           title: 'Badges'
         }
       },
       {
-        path: 'modals',
+        path: 'Createplayers/:id/:name',
         component: ModalsComponent,
         data: {
-          title: 'Modals'
+          title: 'Modals',
+          data:'create'
+        }
+      },
+      {
+        path: 'Updateplayers/:Updateid',
+        component: ModalsComponent,
+        data: {
+          title: 'Modals',
+          data:'edit'
         }
       }
     ]

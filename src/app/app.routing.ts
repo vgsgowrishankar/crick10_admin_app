@@ -84,7 +84,7 @@ export const routes: Routes = [
         loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
       },
       {
-        path: 'notifications',
+        path: 'teams',
         loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
       },
       {
@@ -102,7 +102,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }) ],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

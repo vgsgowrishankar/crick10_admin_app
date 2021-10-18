@@ -1,202 +1,112 @@
-<div class="animated fadeIn">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i> Bootstrap Modals
-        </div>
-        <div class="card-body">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="myModal.show()">
-            Launch demo modal
-          </button>
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="largeModal.show()">
-            Launch large modal
-          </button>
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="smallModal.show()">
-            Launch small modal
-          </button>
-          <hr>
-          <button type="button" class="btn btn-primary mr-1" data-toggle="modal" (click)="primaryModal.show()">
-            Primary modal
-          </button>
-          <button type="button" class="btn btn-success mr-1" data-toggle="modal" (click)="successModal.show()">
-            Success modal
-          </button>
-          <button type="button" class="btn btn-warning mr-1" data-toggle="modal" (click)="warningModal.show()">
-            Warning modal
-          </button>
-          <button type="button" class="btn btn-danger mr-1" data-toggle="modal" (click)="dangerModal.show()">
-            Danger modal
-          </button>
-          <button type="button" class="btn btn-info mr-1" data-toggle="modal" (click)="infoModal.show()">
-            Info modal
-          </button>
-        </div>
-      </div>
-    </div><!--/.col-->
-  </div><!--/.row-->
+<div class="row" style="padding: 25px 25px 25px 25px;">
+  <div class="col-lg-12 col-xl-12 col-md-12 col-xs-12 col-sm-12">
+    <p style="color: #20a8d8; font-size: 20px;"><b>Create Players for {{teamName}} Team</b></p>
+    <button type="button" class="btn btn-primary" style="float: right;" (click)="back()">Back</button>
+  </div>
 </div>
 
-<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<div *ngIf="isCreate" class="row" style="justify-content: center; padding: 30px 30px 30px 30px;">
+  <div class="col-lg-8 col-xl-8 col-md-10 col-xs-12 col-sm-12" style="padding: 25px 25px 25px 25px;border: 1px solid #20a8d8; border-radius: 5px;">
+    <form [formGroup]="playerform" (ngSubmit)="playerSubmitform()">
+      <div class="row margin25">
 
-<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+       
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Player Name</b></label>
+            <input type="text"  formControlName="playerName"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Batting Style</b></label>
+            <input type="text"  formControlName="battingStyle"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Bowling Style</b></label>
+            <input type="text"  formControlName="bowlingStyle"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Role</b></label>
+            <input type="text" formControlName="role"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Nationalty</b></label>
+            <input type="text" formControlName="nationalty"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Date of Birth</b></label>
+            <input type="date" formControlName="dob" 
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Debut Year</b></label>
+            <input type="text" formControlName="debutYear" 
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+       
 
-<div bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="smallModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
+      <div class="col-lg-12 col-xl-12 col-md-6 col-xs-12 col-sm-12 pt-3">
+        <button type="submit" class="btn btn-primary" style="float: right;">Save</button>
+      </div>
 
-<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-primary" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </form>
+  </div>
+</div>
 
+<div *ngIf="isEdit" class="row" style="justify-content: center; padding: 30px 30px 30px 30px;">
+  <div class="col-lg-8 col-xl-8 col-md-10 col-xs-12 col-sm-12" style="padding: 25px 25px 25px 25px;border: 1px solid #20a8d8; border-radius: 5px;">
+    <form [formGroup]="Editplayerform" (ngSubmit)="editPlayerSubmit()">
+      <div class="row margin25">
 
-<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-success" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
-        <button type="button" class="btn btn-success">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+       
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Player Name</b></label>
+            <input type="text"  formControlName="playerName" [(ngModel)]="dataSource.PlayerName"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Batting Style</b></label>
+            <input type="text"  formControlName="battingStyle" [(ngModel)]="dataSource.BattingStyle"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Bowling Style</b></label>
+            <input type="text"  formControlName="bowlingStyle" [(ngModel)]="dataSource.BowlingStyle"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Role</b></label>
+            <input type="text" formControlName="role" [(ngModel)]="dataSource.Role"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Nationalty</b></label>
+            <input type="text" formControlName="nationalty"  [(ngModel)]="dataSource.Nationalty"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Date of Birth</b></label>
+            <input type="date" formControlName="dob"  [(ngModel)]="dataSource.Dob"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+          <div class="col-lg-6 col-xl-6 col-md-6 col-xs-12 col-sm-12 pt-3">
+            <label><b>Debut Year</b></label>
+            <input type="text" formControlName="debutYear" [(ngModel)]="dataSource.DebutYear"
+              style="width:100%; height: 40px; border-radius: 5px; border: 1px solid #000;">
+          </div>
+       
 
+      </div>
 
-<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-warning" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="col-lg-12 col-xl-12 col-md-6 col-xs-12 col-sm-12 pt-3">
+        <button type="submit" class="btn btn-primary" style="float: right;">Save</button>
       </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="warningModal.hide()">Close</button>
-        <button type="button" class="btn btn-warning">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
-<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-danger" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Close</button>
-        <button type="button" class="btn btn-danger">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-info" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="infoModal.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="infoModal.hide()">Close</button>
-        <button type="button" class="btn btn-info">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </form>
+  </div>
+</div>

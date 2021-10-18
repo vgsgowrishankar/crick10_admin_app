@@ -16,34 +16,35 @@ export const navItems: INavData[] = [
     name: 'News',
     url: '/news',
     icon: 'icon-speedometer',
-    // badge: {
-    //   variant: 'info',
-    //   text: 'NEW'
-    // }
+  },
+  {
+    name: 'Teams',
+    url: '/teams',
+    icon: 'icon-puzzle'
   },
   
-  {
-    name: 'Statistics',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
-  {
-    name: 'Gallery',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
+  // {
+  //   name: 'Statistics',
+  //   url: '/theme/colors',
+  //   icon: 'icon-drop'
+  // },
+  // {
+  //   name: 'Gallery',
+  //   url: '/theme/colors',
+  //   icon: 'icon-drop'
+  // },
 
-  {
-    name: 'FanCode',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
+  // {
+  //   name: 'FanCode',
+  //   url: '/theme/colors',
+  //   icon: 'icon-drop'
+  // },
 
-  {
-    name: 'MacthCentre',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
+  // {
+  //   name: 'MacthCentre',
+  //   url: '/theme/colors',
+  //   icon: 'icon-drop'
+  // },
   // {
   //   name: 'Typography',
   //   url: '/theme/typography',

@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, DatePipe} from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar'
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {ToastrModule} from 'ngx-toastr'
     
 
 import {​​​​​​ HttpClientModule }​​​​​​ from'@angular/common/http';
@@ -68,6 +69,7 @@ import { NewsComponent } from './views/news/news.component';
     ReactiveFormsModule,
     HttpClientModule,
     IconSetModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -81,8 +83,10 @@ import { NewsComponent } from './views/news/news.component';
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
+ 
     },
+    DatePipe,
     IconSetService,
   ],
   bootstrap: [ AppComponent ]

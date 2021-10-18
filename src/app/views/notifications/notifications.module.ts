@@ -11,7 +11,7 @@ import { BadgesComponent } from './badges.component';
 // Modal Component
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ModalsComponent } from './modals.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Notifications Routing
 import { NotificationsRoutingModule } from './notifications-routing.module';
 
@@ -20,7 +20,9 @@ import { NotificationsRoutingModule } from './notifications-routing.module';
     CommonModule,
     NotificationsRoutingModule,
     AlertModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     AlertsComponent,
