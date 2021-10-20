@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  base_url:"http://127.0.0.1:3001/"
+  base_url:"http://localhost:3001/"
   // "https:test-api.globals10.com/"
 };

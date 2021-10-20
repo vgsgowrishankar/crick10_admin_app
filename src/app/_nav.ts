@@ -22,6 +22,11 @@ export const navItems: INavData[] = [
     url: '/teams',
     icon: 'icon-puzzle'
   },
+  {
+    name: 'Fixtures',
+    url: '/fixture',
+    icon: 'icon-drop'
+  },
   
   // {
   //   name: 'Statistics',

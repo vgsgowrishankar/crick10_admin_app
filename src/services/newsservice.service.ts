@@ -178,6 +178,56 @@ showError(message, title){
         updateResponse.error = updateResponse["error"];
         return updateResponse;
       }
+
+      //Fixtures
+      async getFixtures() {
+        var parameter_url = environment.base_url + "fixture/";
+        var response = await this.http.get<any>(parameter_url).toPromise()
+          .catch(this.handleError);
+        console.log(response);
+        return response;
+      }
+
+      async createFixtures(newspayload:any){
+        let addNewseurl=environment.base_url+"fixture/";
+       const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+        var addNewsResponse = await this.http.post<any>(addNewseurl, newspayload, httpOptions)
+          .toPromise().catch(this.handleError);
+        if ((addNewsResponse["data"] != undefined) && (addNewsResponse["data"] != null)) {
+          addNewsResponse.success = addNewsResponse["success"];
+          addNewsResponse.data = addNewsResponse["data"];
+          addNewsResponse.statusCode = addNewsResponse["statusCode"];
+        }
+        addNewsResponse.error = addNewsResponse["error"];
+        return addNewsResponse;
+      }
+
+      async deleteFixture(id){
+        let deleteNewsurl=environment.base_url+"fixture/";
+          var deleteResponse = await this.http.delete<any>(deleteNewsurl + id)
+          .toPromise().catch(this.handleError);
+        if ((deleteResponse["success"] = true)) {
+          deleteResponse.success = deleteResponse["success"];
+          deleteResponse.data = deleteResponse["data"];
+          deleteResponse.statusCode = deleteResponse["statusCode"];
+        }
+        return deleteResponse;
+        }
+
+        async updateFixtureDetails(editNews,id){
+          let updateNewsurl=environment.base_url + "fixture/";
+          const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+          var updateResponse = await this.http.put<any>(updateNewsurl+id, editNews, httpOptions)
+            .toPromise().catch(this.handleError);
+          if ((updateResponse["data"] != undefined) && (updateResponse["data"] != null)) {
+            updateResponse.success = updateResponse["success"];
+            updateResponse.data = updateResponse["data"];
+            updateResponse.statusCode = updateResponse["statusCode"];
+          }
+          updateResponse.error = updateResponse["error"];
+          return updateResponse;
+        }
+
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

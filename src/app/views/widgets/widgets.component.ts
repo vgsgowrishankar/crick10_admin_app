@@ -1,391 +1,146 @@
-import { Component } from '@angular/core';
-import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities';
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-
+import { Component,OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NewsserviceService } from '../../../services/newsservice.service';
 @Component({
   templateUrl: 'widgets.component.html'
 })
-export class WidgetsComponent {
-
-  // lineChart1
-  public lineChart1Data: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart1Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 40 - 5,
-          max: 84 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart1Colours: Array<any> = [
-    { // grey
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart1Legend = false;
-  public lineChart1Type = 'line';
-
-  // lineChart2
-  public lineChart2Data: Array<any> = [
-    {
-      data: [1, 18, 9, 17, 34, 22, 11],
-      label: 'Series A'
-    }
-  ];
-  public lineChart2Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart2Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 1 - 5,
-          max: 34 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        tension: 0.00001,
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart2Colours: Array<any> = [
-    { // grey
-      backgroundColor: getStyle('--info'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart2Legend = false;
-  public lineChart2Type = 'line';
+export class WidgetsComponent implements OnInit {
+  fixture: FormGroup;
+  editfixture: FormGroup;
+  dataSource = []
+  isSubmitted: boolean;
+  id: any;
+  constructor(private _newsService: NewsserviceService) { }
+  ngOnInit(): void {
 
 
-  // lineChart3
-  public lineChart3Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'Series A'
+    this.fixture = new FormGroup({
+      MatchName: new FormControl(null, Validators.required),
+      MatchType: new FormControl(null, Validators.required),
+      MatchFormat: new FormControl(null, Validators.required),
+      MatchDate: new FormControl(null, Validators.required),
+      MatchStartTime: new FormControl(null, Validators.required),
+      MatchEndTime: new FormControl(null, Validators.required),
+      MatchTeamA: new FormControl(null, Validators.required),
+      MatchTeamB: new FormControl(null, Validators.required),
+      MatchVenue :new FormControl(null, Validators.required)
+    });
+    this.editfixture = new FormGroup({
+      MatchName: new FormControl(null, Validators.required),
+      MatchType: new FormControl(null, Validators.required),
+      MatchFormat: new FormControl(null, Validators.required),
+      MatchDate: new FormControl(null, Validators.required),
+      MatchStartTime: new FormControl(null, Validators.required),
+      MatchEndTime: new FormControl(null, Validators.required),
+      MatchTeamA: new FormControl(null, Validators.required),
+      MatchTeamB: new FormControl(null, Validators.required),
+      MatchVenue :new FormControl(null, Validators.required)
+    });
+    this.loadFixtures();
+  }
+
+  async loadFixtures() {
+   
+    var newsList = await this._newsService.getFixtures();
+    this.dataSource = newsList.data
+    console.log('new data', this.dataSource)
+  }
+
+  async onSubmit() {
+    if(this.fixture.invalid){
+      this._newsService.showError('Enter All Fields', 'Error')
     }
-  ];
-  public lineChart3Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart3Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
+    else{
+    this.isSubmitted = true;
+    let payload = {
+      "MatchName": this.fixture.get('MatchName').value,
+      "MatchType": this.fixture.get('MatchType').value,
+      "MatchFormat": this.fixture.get('MatchFormat').value,
+      "MatchDate": this.fixture.get('MatchDate').value,
+      "MatchStartTime": this.fixture.get('MatchStartTime').value,
+      "MatchEndTime": this.fixture.get('MatchEndTime').value,
+      "MatchTeamA": this.fixture.get('MatchTeamA').value,
+      "MatchTeamB": this.fixture.get('MatchTeamB').value,
+      "MatchVenue": this.fixture.get('MatchVenue').value,
     }
-  };
-  public lineChart3Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
+    let itemsInCart = []
+
+    let createNews = await this._newsService.createFixtures(payload)
+    if (createNews["success"] == true) {
+      this._newsService.showSuccess('Success', 'Cretaed successfully')
+      let ref = document.getElementById('cancel');
+      ref?.click();
+      this.fixture.reset();
     }
-  ];
-  public lineChart3Legend = false;
-  public lineChart3Type = 'line';
+    else {
+      this._newsService.showError(createNews["error"], 'Error')
+    }
+    itemsInCart.push(this.fixture.value);
+    localStorage.setItem("news_details", JSON.stringify(itemsInCart));
+    this.ngOnInit();
+  }
+  }
+
+  getFixturesById(id) {
+    this.FixturesbyId(id)
+  }
 
 
-  // barChart1
-  public barChart1Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
-      label: 'Series A',
-      barPercentage: 0.6
+ async deleteFixtures(id){
+   debugger
+    let deleteNews = await this._newsService.deleteFixture(id)
+    if (deleteNews["success"] == true) {
+      this._newsService.showSuccess('Success', 'Deleted successfully')
+      this.loadFixtures();
     }
-  ];
-  public barChart1Labels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
-  public barChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
-  public barChart1Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderWidth: 0
-    }
-  ];
-  public barChart1Legend = false;
-  public barChart1Type = 'bar';
+    else {
+      this._newsService.showError(deleteNews["error"], 'Error')
 
-  // lineChart4
-  public lineChart4Data: Array<any> = [
-    {
-      data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
-      label: 'Series A'
     }
-  ];
-  public lineChart4Labels: Array<any> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public lineChart4Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-        points: false,
-      }],
-      yAxes: [{
-        display: false,
-      }]
-    },
-    elements: { point: { radius: 0 } },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart4Colours: Array<any> = [
-    {
-      backgroundColor: 'transparent',
-      borderColor: 'rgba(255,255,255,.55)',
-      borderWidth: 2
-    }
-  ];
-  public lineChart4Legend = false;
-  public lineChart4Type = 'line';
+  }
 
+  FixturesbyId(id) {
+    let data = this.dataSource.filter(x => x.MatchId === id)[0]
+    console.log(data)
+    this.editfixture.patchValue({
+      MatchName: data.MatchName,
+      MatchType: data.MatchType,
+      MatchFormat: data.MatchFormat,
+      MatchDate: data.MatchDate,
+      MatchStartTime: data.MatchStartTime,
+      MatchEndTime: data.MatchEndTime,
+      MatchTeamA: data.MatchTeamA,
+      MatchTeamB: data.MatchTeamB,
+      MatchVenue: data.MatchVenue
+    })
+    this.id = data.MatchId
+  }
 
-  // barChart2
-  public barChart2Data: Array<any> = [
-    {
-      data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
-      label: 'Series A',
-      barPercentage: 0.6
-    }
-  ];
-  public barChart2Labels: Array<any> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public barChart2Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          beginAtZero: true,
-        }
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
-  public barChart2Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(0,0,0,.2)',
-      borderWidth: 0
-    }
-  ];
-  public barChart2Legend = false;
-  public barChart2Type = 'bar';
+  async UpdateFixture() {
 
+    let payLoad = {
+      "MatchName": this.editfixture.get('MatchName').value,
+      "MatchType": this.editfixture.get('MatchType').value,
+      "MatchFormat": this.editfixture.get('MatchFormat').value,
+      "MatchDate": this.editfixture.get('MatchDate').value,
+      "MatchStartTime": this.editfixture.get('MatchStartTime').value,
+      "MatchEndTime": this.editfixture.get('MatchEndTime').value,
+      "MatchTeamA": this.editfixture.get('MatchTeamA').value,
+      "MatchTeamB": this.editfixture.get('MatchTeamB').value,
+      "MatchVenue": this.editfixture.get('MatchVenue').value,
+    }
 
-  // barChart3
-  public barChart3Data: Array<any> = [
-    {
-      data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
-      label: 'Series A'
+    let updateNews = await this._newsService.updateFixtureDetails(payLoad, this.id);
+    if (updateNews["success"] == true) {
+      this._newsService.showSuccess('Success', 'updated successfully')
+      let ref = document.getElementById('cancel1');
+      ref?.click();
+      this.loadFixtures();
+      this.editfixture.reset();
     }
-  ];
-  public barChart3Labels: Array<any> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public barChart3Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
+    else {
+      this._newsService.showError(updateNews["error"], 'Error')
     }
-  };
-  public barChart3Primary: Array<any> = [
-    {
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'transparent',
-      borderWidth: 1
-    }
-  ];
-  public barChart3Danger: Array<any> = [
-    {
-      backgroundColor: getStyle('--danger'),
-      borderColor: 'transparent',
-      borderWidth: 1
-    }
-  ];
-  public barChart3Success: Array<any> = [
-    {
-      backgroundColor: getStyle('--success'),
-      borderColor: 'transparent',
-      borderWidth: 1
-    }
-  ];
-  public barChart3Legend = false;
-  public barChart3Type = 'bar';
 
-
-  // lineChart5
-  public lineChart5Data: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart5Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart5Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-        points: false,
-      }],
-      yAxes: [{
-        display: false,
-      }]
-    },
-    elements: { point: { radius: 0 } },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart5Info: Array<any> = [
-    {
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--info'),
-      borderWidth: 2
-    }
-  ];
-  public lineChart5Success: Array<any> = [
-    {
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--info'),
-      borderWidth: 2
-    }
-  ];
-  public lineChart5Warning: Array<any> = [
-    {
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--warning'),
-      borderWidth: 2
-    }
-  ];
-  public lineChart5Legend = false;
-  public lineChart5Type = 'line';
+  }
 }
